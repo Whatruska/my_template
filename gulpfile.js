@@ -68,6 +68,9 @@ gulp.task('init', function(){
   git.init(function (err) {
     if (err) throw err;
   });
+  git.addRemote('origin', 'https://github.com/Whatruska/my_template', function (err) {
+    if (err) throw err;
+  });
 });
 
 gulp.task('add', function(){
@@ -77,7 +80,17 @@ gulp.task('add', function(){
 
 gulp.task('commit', function(){
   return gulp.src('./git-test/*')
-    .pipe(git.commit('gulp-git added'));
+    .pipe(git.commit('gulp-git commit'));
+});
+
+gulp.task('push', function(){
+  git.push('origin', 'master', function (err) {
+    if (err) throw err;
+  });
+});
+
+gulp.task('git', function(){
+  gulp.series('add', 'commit', 'push');
 });
 
 // gulp.task('bootstrap', function () {
