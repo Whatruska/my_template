@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const git = require('gulp-git');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
@@ -62,6 +63,22 @@ gulp.task('webfonts', function () {
   return gulp.src('libs/Font-Awesome/webfonts/**/*.*')
   .pipe(gulp.dest('public/webfonts'));
 })
+
+gulp.task('init', function(){
+  git.init(function (err) {
+    if (err) throw err;
+  });
+});
+
+gulp.task('add', function(){
+  return gulp.src('./')
+    .pipe(git.add());
+});
+
+gulp.task('commit', function(){
+  return gulp.src('./git-test/*')
+    .pipe(git.commit('gulp-git added'));
+});
 
 // gulp.task('bootstrap', function () {
 //   return gulp.src('libs/bootstrap/dist/css/*.*')
